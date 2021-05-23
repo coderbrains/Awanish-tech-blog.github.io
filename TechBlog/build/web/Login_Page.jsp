@@ -4,6 +4,7 @@
     Author     : Awanish kumar singh
 --%>
 
+<%@page import="com.tech.blog.entities.Message"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,19 +23,39 @@
     </head>
     <body>
 
-          <!--Navbar-->
+        <!--Navbar-->
         <%@include file="normal_navbar.jsp" %>
 
-        <main class="d-flex align-items-center banner-background " style="height:80vh; background:#2196f3 ">
+        <main class="d-flex align-items-center banner-background " style="height:90vh; background:#2196f3 ">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 offset-md-4">
                         <div class="card">
-                            <div class="card-body primary-background text-white text-center">
+                            <div class="card-header primary-background text-white text-center">
                                 <span class="fa fa-user-plus fa-3x"></span>
                                 <h2>Login Here</h2>
 
+
                             </div>
+                            
+                            <% 
+                                Message m = (Message)session.getAttribute("msg");
+                                if(m!=null){
+                                    
+                                
+                            %>
+                            
+                            
+                            <div class="alert <%= m.getCssClass()%>"  role="alert">
+                                <%= m.getMessage()%>
+                            </div>
+                            
+                            <%
+                                session.removeAttribute("msg");
+                                }
+                                %>
+                            
+                            
 
                             <div class="card-body">
 
@@ -56,7 +77,7 @@
                                     <div class="container text-center">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
-                                    </form>
+                                </form>
                             </div>
 
                         </div>

@@ -1,5 +1,6 @@
 
 import com.tech.blog.dao.UserDao;
+import com.tech.blog.entities.Message;
 import com.tech.blog.entities.User;
 import com.tech.blog.helper.ConnectionProvider;
 import java.io.IOException;
@@ -42,7 +43,10 @@ public class Login_Servlet extends HttpServlet {
 
                 if (user == null) {
                     // some error occured...
-                    out.println("Invalid details provided..");
+                    Message msg = new Message("Invalid details provided ! Plz provide the valid ones..","error","alert-danger");
+                    HttpSession httpSession = request.getSession();
+                    httpSession.setAttribute("msg", msg);
+                    response.sendRedirect("Login_Page.jsp");
                     
                 }else{
                     //successfully login
