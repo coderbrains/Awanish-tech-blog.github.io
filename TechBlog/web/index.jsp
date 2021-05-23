@@ -19,14 +19,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
             .banner-background{
-                clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 68% 85%, 32% 93%, 0 88%, 0 0);
+                clip-path: polygon(50% 0%, 100% 0, 100% 100%, 84% 96%, 68% 100%, 48% 97%, 29% 100%, 14% 96%, 0 100%, 0 0);
             }
         </style>
     </head>
     <body>
 
-        <!--Navbar-->
+         <!--Navbar-->
         <%@include file="normal_navbar.jsp" %>
+      
 
         <!--Banner-->
 

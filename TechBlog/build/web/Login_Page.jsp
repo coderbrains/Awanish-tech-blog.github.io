@@ -16,21 +16,23 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
             .banner-background{
-                clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 68% 85%, 32% 93%, 0 88%, 0 0);
+                clip-path: polygon(50% 0%, 100% 0, 100% 100%, 84% 96%, 68% 100%, 48% 97%, 29% 100%, 14% 96%, 0 100%, 0 0);
             }
         </style>
     </head>
     <body>
 
+          <!--Navbar-->
+        <%@include file="normal_navbar.jsp" %>
 
-        <main>
+        <main class="d-flex align-items-center banner-background " style="height:80vh; background:#2196f3 ">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 offset-md-4">
                         <div class="card">
-                            <div class="card-body text-center">
-
-                                <h1>Login Here</h1>
+                            <div class="card-body primary-background text-white text-center">
+                                <span class="fa fa-user-plus fa-3x"></span>
+                                <h2>Login Here</h2>
 
                             </div>
 
