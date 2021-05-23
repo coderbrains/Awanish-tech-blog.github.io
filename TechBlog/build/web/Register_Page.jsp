@@ -39,49 +39,52 @@
                         </div>
 
                         <div class="card-body">
-                            
-                            <form>
-                                
-                                 <div class="form-group">
+
+                            <form id="reg-form" action="RegisterServlet" method="POST">
+
+                                <div class="form-group">
                                     <label for="user_name">User Name</label>
-                                    <input type="text" class="form-control" id="user_name" aria-describedby="user" placeholder="Enter Name">
+                                    <input name="user_name" type="text" class="form-control" id="user_name" aria-describedby="user" placeholder="Enter Name">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <input name="user_email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                                 </div>
-                                
-                                
+
+
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    <input name="user_password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>
-                                
-                                
+
+
                                 <div class="form-group">
                                     <label for="gender">Select Gender</label>
                                     <br>
-                                    <input type="radio" id="gender" name="gender">Male
-                                    <input type="radio" id="gender" name="gender">Female
+                                    <input type="radio" value="Male" id="gender" name="gender">Male
+                                    <input type="radio" value="Female" id="gender" name="gender">Female
                                 </div>
-                                
+
                                 <div>
-                                    
+
                                     <textarea name="about" class="form-control" id="about" rows="5" placeholder="Enter something about Yourself"></textarea>
-                                    
-                                    
+
+
                                 </div>
-                                
-                                
+
+
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Accept terms and conditions</label>
+                                    <input name="user_check" type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label  class="form-check-label" for="exampleCheck1">Accept terms and conditions</label>
                                 </div>
-                                
+
                                 <br>
-                                
+                                <div class="container text-center " id="spinner">
+                                    <span class="fa fa-refresh fa-3x fa-spin"></span>
+                                    <h3>Please wait..</h3>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
@@ -102,5 +105,48 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
         <script src="js/myjs.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+                $('#spinner').hide();
+                console.log('loaded..');
+                $('#reg-form').on('submit', function (event) {
+                    $('#spinner').show();
+                    event.preventDefault();
+                    let form = new FormData(this);
+
+                    $.ajax({
+                        url: "RegisterServlet",
+                        type: "POST",
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data);
+                            $('#spinner').hide();
+                            if (data.trim() === 'success') {
+
+                                swal("You are successfully registered.Redirecting to login page...")
+                                        .then((value) => {
+                                    window.location = "Login_Page.jsp";
+                                });
+                            }else {
+                                swal(data);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR);
+                            $('#spinner').hide();
+                        },
+                        processData: false,
+                        contentType: false
+                    });
+
+                })
+
+
+            });
+
+
+        </script>
     </body>
 </html>

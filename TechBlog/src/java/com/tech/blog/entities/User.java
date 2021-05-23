@@ -15,12 +15,11 @@ public class User {
     private Timestamp datetime;
     private String about;
 
-    public User(String name, String email, String password, String gender, Timestamp datetime, String about) {
+    public User(String name, String email, String password, String gender,String about) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.gender = gender;
-        this.datetime = datetime;
         this.about = about;
     }
 
