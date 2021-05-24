@@ -150,7 +150,7 @@
 
                             <div id="profile_edit" style="display: none">
 
-                                <form action="Editservlet" method="POST">
+                                <form action="Editservlet" method="POST"  enctype="multipart/form-data">
 
                                     <table class="table">
 
@@ -180,75 +180,83 @@
                                             <td>About</td>
                                             <td>
                                                 <textarea rows="3" class="form-control" name="user_about" ><%= user.getAbout()%></textarea>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
                                             <td>New Pic :</td>
                                             <td>
                                                 <input class="form-control" type="file" name="profile_pic"/>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
 
-                                </table>
+                                    </table>
 
-                                <div class="container text-center text-white">
-                                    <button class="btn btn-outline-light primary-background" type="submit">Save</button>
-                                </div>
+                                    <div class="container text-center text-white">
+                                        <button id="saveupdate" class="btn btn-outline-light primary-background" type="submit">Save</button>
+                                    </div>
 
 
-                            </form>
+                                </form>
+
+                            </div>
 
                         </div>
 
+
                     </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="edit-details" type="button" class="btn btn-primary">Edit</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="edit-details" type="button" class="btn btn-primary">Edit</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!--profile modal ends-->
+        <!--profile modal ends-->
 
-    <!--javascripts-->
+        <!--javascripts-->
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <script src="js/myjs.js" type="text/javascript"></script>
+        <script src="js/myjs.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <script>
+        <script>
 
-        $('ducument').ready(function () {
-            let editstatus = false;
+            $('ducument').ready(function () {
+                let editstatus = false;
 
-            $('#edit-details').click(function () {
-                if (editstatus == false) {
-                    $('#profile_details').hide();
-                    $('#profile_edit').show();
-                    editstatus = true;
-                    $(this).text('Back');
-                } else {
-                    console.log('hello');
-                    $('#profile_details').show();
-                    $('#profile_edit').hide();
-                    editstatus = false;
-                    $(this).text('Edit');
-                }
-//                    
-//                    
+                $('#edit-details').click(function () {
+                    if (editstatus == false) {
+                        $('#profile_details').hide();
+                        $('#profile_edit').show();
+                        editstatus = true;
+                        $(this).text('Back');
+                    } else {
+                        $('#profile_details').show();
+                        $('#profile_edit').hide();
+                        editstatus = false;
+                        $(this).text('Edit');
+                    }                   
+                });
+
+                $('#saveupdate').on('submit', function (event) {
+                            
+                                swal("You are successfully registered.Redirecting to login page...")
+                                        .then((value) => {
+                                    window.location = "Login_Page.jsp";
+                                });
+
+                });
+
+
+
             });
+        </script>
 
-
-        });
-    </script>
-
-</body>
+    </body>
 </html>

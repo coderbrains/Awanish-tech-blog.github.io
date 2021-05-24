@@ -15,6 +15,29 @@ public class UserDao {
     public UserDao(Connection con) {
         this.con = con;
     }
+    
+    
+    public void updateUser(User user){
+        
+        try{
+            
+            String sql = "UPDATE user SET name = ?, email = ?, password = ?,about = ?,profile = ? WHERE id = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            st.setString(1, user.getName());
+            st.setString(2, user.getEmail());
+            st.setString(3, user.getPassword());
+            st.setString(4, user.getAbout());
+            st.setString(5, user.getProfile());
+            st.setInt(6, user.getId());
+            
+            
+            st.executeUpdate();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public boolean saveUser(User user) {
 
