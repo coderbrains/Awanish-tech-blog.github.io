@@ -4,6 +4,7 @@
     Author     : Awanish kumar singh
 --%>
 
+<%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%
     User user = (User) session.getAttribute("currentuser");
@@ -79,6 +80,23 @@
         </nav>
 
         <!--end of  navbar-->
+
+        <%
+            Message m = (Message) session.getAttribute("msg");
+            if (m != null) {
+
+
+        %>
+
+
+        <div class="alert <%= m.getCssClass()%>"  role="alert">
+            <%= m.getMessage()%>
+        </div>
+
+        <%
+                session.removeAttribute("msg");
+            }
+        %>
 
 
 
@@ -241,15 +259,15 @@
                         $('#profile_edit').hide();
                         editstatus = false;
                         $(this).text('Edit');
-                    }                   
+                    }
                 });
 
                 $('#saveupdate').on('submit', function (event) {
-                            
-                                swal("You are successfully registered.Redirecting to login page...")
-                                        .then((value) => {
-                                    window.location = "Login_Page.jsp";
-                                });
+
+                    swal("You are successfully registered.Redirecting to login page...")
+                            .then((value) => {
+                                window.location = "Login_Page.jsp";
+                            });
 
                 });
 

@@ -17,8 +17,8 @@ public class UserDao {
     }
     
     
-    public void updateUser(User user){
-        
+    public boolean updateUser(User user){
+        boolean f = false;
         try{
             
             String sql = "UPDATE user SET name = ?, email = ?, password = ?,about = ?,profile = ? WHERE id = ?";
@@ -33,10 +33,11 @@ public class UserDao {
             
             
             st.executeUpdate();
-            
+            f = true;
         }catch(Exception e){
             e.printStackTrace();
         }
+        return f;
     }
 
     public boolean saveUser(User user) {
