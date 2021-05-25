@@ -120,7 +120,7 @@
 
                     <div class="list-group">
 
-                        <a onclick="getAllPosts(0)" href="#" class="list-group-item list-group-item-action active">All Posts</a>
+                        <a onclick="getAllPosts(0,this)" href="#" class="c-link  list-group-item list-group-item-action active">All Posts</a>
 
                         <%
                             PostDao pd = new PostDao(ConnectionProvider.getConnection());
@@ -129,7 +129,7 @@
 
 
                         %>
-                        <a onclick="getAllPosts(<%=  c.getcId() %>)" href="#"  class="list-group-item list-group-item-action"><%= c.getName()%></a>
+                        <a onclick="getAllPosts(<%=  c.getcId() %>, this)" href="#"  class="c-link list-group-item list-group-item-action"><%= c.getName()%></a>
 
                         <%                            }
                         %> </div>
@@ -495,9 +495,10 @@
 
         <script>
             
-           function getAllPosts(cId){
+           function getAllPosts(cId, temp){
                $('#postloader').show();
                $('#postcontainer').hide();
+               $('.c-link').removeClass('active');
                 $.ajax({
                     url: "Load_Posts.jsp",
                     data : {catId : cId},
@@ -506,7 +507,7 @@
                         $('#postloader').hide();
                         $('#postcontainer').show();
                         $('#postcontainer').html(data);
-                        
+                        $(temp).addClass('active');
                     },
                     error : function (data, textStatus, jqXHR) {
                         alert('cannot load any page right now....');
@@ -521,7 +522,8 @@
 
             $(document).ready(function (e) {
                 console.log('page loaded...');
-                getAllPosts(0);
+                let abc = $('.c-link')[0];
+                getAllPosts(0,abc);
                
             });
 
