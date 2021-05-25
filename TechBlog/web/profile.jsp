@@ -120,7 +120,7 @@
 
                     <div class="list-group">
 
-                        <a href="#" class="list-group-item list-group-item-action active">All Posts</a>
+                        <a onclick="getAllPosts(0)" href="#" class="list-group-item list-group-item-action active">All Posts</a>
 
                         <%
                             PostDao pd = new PostDao(ConnectionProvider.getConnection());
@@ -143,6 +143,17 @@
                     <!--//posts appear here-->
 
 
+                    <div class="container text-center" id="postloader">
+
+                        <i class="fa fa-refresh fa-5x fa-spin"></i>
+                        <h2 class="display mt-4">Loading Posts...</h2>
+
+                    </div>
+
+                    <div class="container-fluid" id="postcontainer">
+
+
+                    </div>
 
                 </div>
 
@@ -462,7 +473,7 @@
                                             window.location = "profile.jsp";
                                         });
                             } else {
-                                swal(data);
+                                swal("sorry ! something went wrong..");
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -478,6 +489,46 @@
 
 
         </script>
+
+
+        <!--loading posts from the database...-->
+
+        <script>
+            
+           function getAllPosts(cId){
+               
+                $.ajax({
+
+                    url: "Load_Posts.jsp",
+                    data : {catId : cId},
+                    success: function (data, textStatus, jqXHR) {
+                        console.log('success..',data);
+                        $('#postloader').hide();
+                        
+                        $('#postcontainer').html(data);
+                        
+                    },
+                    error : function (data, textStatus, jqXHR) {
+                        console.log('error occured');
+                        ('#postloader').hide();
+                    }
+                    
+                    
+
+                });
+               
+           }
+
+            $(document).ready(function (e) {
+                console.log('page loaded...');
+                getAllPosts(0);
+               
+            });
+
+
+
+        </script>
+
 
     </body>
 </html>

@@ -27,6 +27,17 @@ public class Post {
         this.userId = userId;
     }
 
+    public Post(int pId, String pTitle, String pContent, String pCode, String pPic, Timestamp pDate, int catId, int userId) {
+        this.pId = pId;
+        this.pTitle = pTitle;
+        this.pContent = pContent;
+        this.pCode = pCode;
+        this.pPic = pPic;
+        this.pDate = pDate;
+        this.catId = catId;
+        this.userId = userId;
+    }
+
     public Post(String pTitle, String pContent, String pCode, String pPic,  int catId, int userId) {
         this.pTitle = pTitle;
         this.pContent = pContent;

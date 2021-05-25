@@ -4,6 +4,7 @@ import com.tech.blog.entities.Category;
 import java.sql.*;
 import java.util.ArrayList;
 import com.tech.blog.entities.Post;
+import java.util.List;
 /**
  *
  * @author Awanish kumar singh
@@ -64,5 +65,84 @@ public class PostDao {
         }
         return status;
     }
+    
+    
+    
+    
+    //getting all posts from database
+    public List<Post> getAllPost(){
+        
+        List<Post>  list = new ArrayList<>();
+        
+        try{
+            
+            String sql = "select * from posts order by pId desc";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            while(rs.next()){
+                int pId = rs.getInt("pId");
+                String pTitle = rs.getString("pTitle");
+                String pContent = rs.getString("pContent");
+                String pCode = rs.getString("pCode");
+                String ppic = rs.getString("pPic");
+                Timestamp pTime = rs.getTimestamp("pDate");
+                int catId = rs.getInt("catId");
+                int userId = rs.getInt("userId");
+                
+                Post post = new Post(pId, pTitle, pContent, pCode, ppic, pTime ,catId, userId);
+                
+                list.add(post);
+                
+            }
+            
+            
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return list;
+    }
+    
+    //getting all posts by category id....
+    
+    public List<Post> getAllPostByCatId(int catId){
+        
+        List<Post> list = new ArrayList<>();
+        
+        try{
+            
+            String sql = "select * from posts where catId = " + catId ;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            while(rs.next()){
+                int pId = rs.getInt("pId");
+                String pTitle = rs.getString("pTitle");
+                String pContent = rs.getString("pContent");
+                String pCode = rs.getString("pCode");
+                String ppic = rs.getString("pPic");
+                Timestamp pTime = rs.getTimestamp("pDate");
+                int userId = rs.getInt("userId");
+                
+                Post post = new Post(pId, pTitle, pContent, pCode, ppic, pTime ,catId, userId);
+                
+                list.add(post);
+                
+            }
+            
+            
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        
+        return list;
+    }
+    
+    
+    
 
 }
