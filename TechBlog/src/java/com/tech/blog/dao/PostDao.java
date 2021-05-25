@@ -3,7 +3,7 @@ package com.tech.blog.dao;
 import com.tech.blog.entities.Category;
 import java.sql.*;
 import java.util.ArrayList;
-
+import com.tech.blog.entities.Post;
 /**
  *
  * @author Awanish kumar singh
@@ -40,6 +40,29 @@ public class PostDao {
         }
 
         return al;
+    }
+    
+    
+    public boolean savePost(Post post){
+        boolean status = false;
+        
+        try{
+            
+            String sql = "insert into posts(pTitle, pContent, pCode, pPic, catId, userId)values(?,?,?,?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, post.getpTitle());
+            st.setString(2, post.getpContent());
+            st.setString(3, post.getpCode());
+            st.setString(4, post.getpPic());
+            st.setInt(5, post.getCatId());
+            st.setInt(6, post.getUserId());
+            st.executeUpdate();
+            status = true;
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return status;
     }
 
 }

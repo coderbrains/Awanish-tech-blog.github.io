@@ -108,10 +108,64 @@
 
 
 
+        <!--Main body starts here-->
+
+        <div class="container">
+
+            <div class="row mt-4">
+
+
+                <div class="col-md-4 ">
+                    <!--categories appear here-->
+
+                    <div class="list-group">
+
+                        <a href="#" class="list-group-item list-group-item-action active">All Posts</a>
+
+                        <%
+                            PostDao pd = new PostDao(ConnectionProvider.getConnection());
+                            ArrayList<Category> al = pd.getAllCategories();
+                            for (Category c : al) {
+
+
+                        %>
+                        <a href="#"  class="list-group-item list-group-item-action"><%= c.getName()%></a>
+
+                        <%                            }
+                        %> </div>
+
+
+
+                </div>
+
+
+                <div class="col-md-8">
+                    <!--//posts appear here-->
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+        <!--main body ends here-->
+
+
+
         <!--profie modal starts-->
 
 
         <!-- Modal -->
+
         <div class="modal fade" id="Profile_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -315,10 +369,10 @@
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">terms and conditions applied</label>
                             </div>
-                                
-                                <div class="container text-center">
+
+                            <div class="container text-center">
                                 <button id="postbutton" type="submit" class="btn btn-primary">Post</button>
-                                </div>
+                            </div>
                         </form>
 
 
@@ -326,7 +380,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -414,7 +467,7 @@
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(jqXHR);
-                            $('#spinner').hide();
+                            swal(data);
                         },
                         processData: false,
                         contentType: false

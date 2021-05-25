@@ -5,17 +5,28 @@
  */
 package com.tech.blog.servlets;
 
+import com.tech.blog.dao.PostDao;
+import com.tech.blog.entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import com.tech.blog.entities.*;
+import com.tech.blog.helper.ConnectionProvider;
+import com.tech.blog.helper.Helper;
+import java.io.File;
 
 /**
  *
  * @author Awanish kumar singh
  */
+
+@MultipartConfig
 public class PostServlet extends HttpServlet {
 
     /**
@@ -32,8 +43,37 @@ public class PostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             String  t = request.getParameter("pTitle");
-            out.println(t);
+            
+            
+            int cId = Integer.parseInt(request.getParameter("cId")); 
+            String  t = request.getParameter("pTitle");
+            String content = request.getParameter("pContent");
+            String code = request.getParameter("pCode");
+            Part part = request.getPart("pPic");
+            String imageName = part.getSubmittedFileName();
+            
+            
+            
+            //getting user id....
+            
+            HttpSession session  = request.getSession();
+            User user = (User)session.getAttribute("currentuser");
+            
+            int userId = user.getId();
+            
+            Post p = new Post(t, content, code, imageName, cId, userId);
+            
+            PostDao postDao = new PostDao(ConnectionProvider.getConnection());
+            if(postDao.savePost(p)){
+                
+                String path = request.getRealPath("/") + "Blog_pics" + File.separator + part.getSubmittedFileName();
+                Helper.saveFile(part.getInputStream(), path);
+                out.println("success");
+                
+                
+            }else{
+                out.println("sorry ! something went wrong.");
+            }
         
         }
     }
