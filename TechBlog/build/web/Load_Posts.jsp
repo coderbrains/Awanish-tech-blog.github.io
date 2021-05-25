@@ -10,7 +10,19 @@
         
         <%
             PostDao postdao = new PostDao(ConnectionProvider.getConnection());
-            List<Post> al = postdao.getAllPost();
+            
+            int cid = Integer.parseInt(request.getParameter("catId"));
+            List<Post> al;
+            Thread.sleep(1000);
+            if(cid == 0){
+                al = postdao.getAllPost();
+            }else{
+                al = postdao.getAllPostByCatId(cid);
+            }
+            
+            if(al.size() == 0){
+                out.println("<h3 class = 'display-3 text-center'>No Post available in this category...  </h3>");
+            }
             
             for(Post p : al){
                 
