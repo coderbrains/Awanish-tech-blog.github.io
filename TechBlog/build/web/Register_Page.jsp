@@ -81,7 +81,7 @@
                                 </div>
 
                                 <br>
-                                <div class="container text-center " id="spinner">
+                                <div class="container text-center " id="spinner" style="display: none">
                                     <span class="fa fa-refresh fa-3x fa-spin"></span>
                                     <h3>Please wait..</h3>
                                 </div>
@@ -124,12 +124,12 @@
                             console.log(data);
                             $('#spinner').hide();
                             if (data.trim() === 'success') {
-
+                                
                                 swal("You are successfully registered.Redirecting to login page...")
                                         .then((value) => {
-                                    window.location = "Login_Page.jsp";
-                                });
-                            }else {
+                                            window.location = "Login_Page.jsp";
+                                        });
+                            } else {
                                 swal(data);
                             }
                         },

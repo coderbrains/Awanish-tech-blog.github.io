@@ -16,6 +16,10 @@
         <servlet-name>Editservlet</servlet-name>
         <servlet-class>com.tech.blog.servlets.Editservlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostServlet</servlet-name>
+        <servlet-class>com.tech.blog.servlets.PostServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>Editservlet</servlet-name>
         <url-pattern>/Editservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/PostServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -48,44 +48,55 @@ public class Editservlet extends HttpServlet {
             out.println("<title>Servlet Editservlet</title>");
             out.println("</head>");
             out.println("<body>");
-
+            
             String name = request.getParameter("user_name");
             String email = request.getParameter("user_email");
             String password = request.getParameter("user_password");
             String about = request.getParameter("user_about");
-            Part profile = request.getPart("profile_pic");
-            String imagename = profile.getSubmittedFileName();
-
+            Part part = request.getPart("profile_pic");
+            String imagename = part.getSubmittedFileName();
+            
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("currentuser");
-
+            
             user.setEmail(email);
             user.setName(name);
             user.setPassword(password);
             user.setAbout(about);
-            user.setProfile(imagename);
-
+            String oldpic = user.getProfile();
+            if(imagename != null){
+                user.setProfile(imagename);
+                
+            }else{
+                user.setProfile(oldpic);
+            }            
+            
+            
+            
             UserDao userdao = new UserDao(ConnectionProvider.getConnection());
-
+            
             if (userdao.updateUser(user)) {
-
+                
                 String path = request.getRealPath("/") + "pics" + File.separator + user.getProfile();
-                Helper.deleteFile(path);
-
-                Helper.saveFile(profile.getInputStream(), path);
-
+                String pathold = request.getRealPath("/") + "pics" + File.separator + oldpic;
+                
+                if (!oldpic.equals("Default.png")) {
+                    Helper.deleteFile(pathold);
+                }
+                
+                Helper.saveFile(part.getInputStream(), path);
+                
                 Message msg = new Message("Profile page updated successfully..", "success", "alert-success");
                 session.setAttribute("msg", msg);
-
+                
             } else {
                 
                 Message msg = new Message("Profile page not updated successfully..", "error", "alert-danger");
                 session.setAttribute("msg", msg);
-
+                
             }
             
-            
-                response.sendRedirect("profile.jsp");
+            response.sendRedirect("profile.jsp");
 
 //            session.removeAttribute("currentuser");
 //            response.sendRedirect("Login_Page.jsp");

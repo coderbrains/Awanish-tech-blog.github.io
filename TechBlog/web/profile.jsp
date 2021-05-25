@@ -4,6 +4,10 @@
     Author     : Awanish kumar singh
 --%>
 
+<%@page import="com.tech.blog.entities.Category"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
 <%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%
@@ -62,6 +66,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><span class="fa fa-address-book"></span> Contact</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#postmodal"><span class="fa fa-plus"></span> Do Post</a>
                     </li>
 
                 </ul>
@@ -234,6 +242,107 @@
 
         <!--profile modal ends-->
 
+
+        <!--Post modal starts here-->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="postmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class=" container text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel"><span class ="fa fa-plus-square"></span> <br>  Fill the data carefully</h5>
+
+                    </div>
+
+
+                    <div class="modal-body">
+
+                        <form action="PostServlet" method="POST" id="postform">
+
+
+                            <div class="form-group">
+                                <select class="form-control" name="cId">
+                                    <option disabled selected>--------Select categories--------</option>
+
+                                    <%
+                                        PostDao p = new PostDao(ConnectionProvider.getConnection());
+                                        ArrayList<Category> a = p.getAllCategories();
+                                        for (Category c : a) {
+
+
+                                    %>
+                                    <option value="<%=  c.getcId()%>" class="dropdown-item text-center form-control"><%= c.getName()%></option>
+                                    <%
+                                        }
+                                    %>
+                                </select>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Post Title</label>
+                                <input type="text" class="form-control" name="pTitle" aria-describedby="emailHelp" placeholder="Enter Title here">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Post Content</label>
+                                <textarea  style="height: 200px" class="form-control" name="pContent" placeholder="Enter description of the post..."></textarea>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Post Code</label>
+                                <textarea  style="height: 200px" class="form-control" name="pCode" placeholder="Enter code if any regarding your post..."></textarea>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Select Your Pic</label>
+                                <br>
+                                <div class="custom-file">
+                                    <input type="file" class="form-control" name="pPic"/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">terms and conditions applied</label>
+                            </div>
+                                
+                                <div class="container text-center">
+                                <button id="postbutton" type="submit" class="btn btn-primary">Post</button>
+                                </div>
+                        </form>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--Post modal ends here-->
+
+
+
+
+
+
+
+
         <!--javascripts-->
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -274,6 +383,47 @@
 
 
             });
+        </script>
+
+
+        <!--post script here...-->
+
+        <script>
+
+            $(document).ready(function () {
+                $('#postform').on('submit', function (event) {
+
+                    console.log('submitted..')
+                    event.preventDefault();
+                    let form = new FormData(this);
+                    $.ajax({
+                        url: "PostServlet",
+                        type: "POST",
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+
+                            if (data.trim() === 'success') {
+
+                                swal("Your post is successfully posted.")
+                                        .then((value) => {
+                                            window.location = "profile.jsp";
+                                        });
+                            } else {
+                                swal(data);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR);
+                            $('#spinner').hide();
+                        },
+                        processData: false,
+                        contentType: false
+                    });
+
+                });
+            });
+
+
         </script>
 
     </body>
