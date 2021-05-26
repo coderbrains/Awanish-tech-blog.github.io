@@ -1,14 +1,19 @@
 
+<%@page import="com.tech.blog.entities.User"%>
+<%@page import="com.tech.blog.dao.LikeDao"%>
 <%@page import="java.util.List"%>
 <%@page import="com.tech.blog.entities.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.dao.PostDao"%>
-<div class="container-fluid">
+
+
+<div>
 
     <div class="row">
 
         <%
+            User user = (User)session.getAttribute("currentuser");
             PostDao postdao = new PostDao(ConnectionProvider.getConnection());
 
             int cid = Integer.parseInt(request.getParameter("catId"));
@@ -30,28 +35,32 @@
                 s = s.substring(0, Math.min(s.length(), 50));
                 s = s + "...";
 
-                 
-            
+
         %>
 
         <div class="col-md-6 mt-4">
             <div class="card">
-                
+
                 <!--<div class="card-header primary-background"></div>-->
 
                 <div class="card-body">
                     <img class="card-img-top" style="height: 50%" src="Blog_pics/<%= p.getpPic()%>" alt="Image not uploaded by the author">
-                    <h5 class="display"><%= p.getpTitle() %></h5>
-                    <p><%=  s  %></p>
+                    <h5 class="display"><%= p.getpTitle()%></h5>
+                    <p><%=  s%></p>
 
                 </div>
-                    
-                    <div class="card-footer text-center primary-background">
-                        <a href="#!" class="btn btn-outline-light btn-sm"><span class="fa fa-thumbs-o-up">10</span></a>
-                        <a href="show_blog.jsp?post_id=<%=  p.getpId() %>" class="btn btn-outline-light btn-sm">Read more..</a>
-                        <a href="#!" class="btn btn-outline-light btn-sm"><span class="fa fa-commenting-o">20</span></a>
-                        
-                    </div>
+
+                <div class="card-footer text-center primary-background">
+
+                    <%
+                        LikeDao likeDao = new LikeDao(ConnectionProvider.getConnection());
+                    %>
+
+                    <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span  class="like-counter"><%= likeDao.countLike(p.getpId())%></span></a>
+                    <a href="show_blog.jsp?post_id=<%=  p.getpId()%>" class="btn btn-outline-light btn-sm">Read more..</a>
+                    <a href="#!" class="btn btn-outline-light btn-sm"><span class="fa fa-commenting-o">20</span></a>
+
+                </div>
 
 
             </div>

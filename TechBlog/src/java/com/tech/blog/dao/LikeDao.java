@@ -31,7 +31,7 @@ public class LikeDao {
             String sql = "insert into liked(postid, userid)values(?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, pid);
-            st.setInt(2, pid);
+            st.setInt(2, uid);
             st.executeUpdate();
             status = true;
             

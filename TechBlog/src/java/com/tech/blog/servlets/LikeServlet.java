@@ -1,5 +1,7 @@
 package com.tech.blog.servlets;
 
+import com.tech.blog.dao.LikeDao;
+import com.tech.blog.helper.ConnectionProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -27,7 +29,17 @@ public class LikeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
            
+            String operation = request.getParameter("operation");
+            int pid = Integer.parseInt(request.getParameter("postid"));
+            int userid = Integer.parseInt(request.getParameter("uid"));
             
+            LikeDao likedao = new LikeDao(ConnectionProvider.getConnection());
+            
+            if(operation.equals("like")){
+                
+                boolean status = likedao.insertLike(pid, userid);
+                out.println(status);
+            }
             
         }
     }

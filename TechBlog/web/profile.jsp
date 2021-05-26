@@ -117,7 +117,7 @@
 
         <!--Main body starts here-->
 
-        <div class="container">
+        <div style="background-attachment: fixed">
 
             <div class="row mt-4">
 
