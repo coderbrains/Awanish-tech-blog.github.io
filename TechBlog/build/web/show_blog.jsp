@@ -419,7 +419,7 @@
                         <div class="card-footer primary-background">
 
 
-                            <a href="#!" class="btn btn-outline-light btn-sm"><span class="fa fa-thumbs-o-up">10</span></a>
+                            <a href="#!"  onclick="dolike(<%=  post.getpId()   %> , <%=   user.getId()  %>)" class="btn btn-outline-light btn-sm"><span class="fa fa-thumbs-o-up">10</span></a>
                             <a href="#!" class="btn btn-outline-light btn-sm"><span class="fa fa-commenting-o">20</span></a>
 
                         </div>
@@ -445,7 +445,7 @@
 
         <script src="js/myjs.js" type="text/javascript"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+        <script src="js/myjs.js" type="text/javascript"></script>
         <script>
 
             $('ducument').ready(function () {
