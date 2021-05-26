@@ -4,6 +4,7 @@ import com.tech.blog.entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * @author Awanish kumar singh
@@ -93,5 +94,35 @@ public class UserDao {
 
         return user;
     }
+
+    public User getUserById(int userId)
+    {
+        User user = null;
+        
+        try{
+            
+            String sql = "select * from user where Id = " + userId;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("Id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setGender(rs.getString("gender"));
+                user.setAbout(rs.getString("about"));
+                user.setDatetime(rs.getTimestamp("Registration_Date"));
+                user.setProfile(rs.getString("profile"));
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return user;
+    }
+
 
 }

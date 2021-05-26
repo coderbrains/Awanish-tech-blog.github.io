@@ -34,6 +34,13 @@
             .banner-background{
                 clip-path: polygon(50% 0%, 100% 0, 100% 100%, 84% 96%, 68% 100%, 48% 97%, 29% 100%, 14% 96%, 0 100%, 0 0);
             }
+            
+             body{
+                background: url(image/postbackground.jpg);
+                background-size: cover;
+                background-attachment: fixed;
+            }
+            
         </style>
     </head>
     <body>
@@ -48,7 +55,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#"><span class="fa fa-bell-o"></span>Code with Awanish <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="profile.jsp"><span class="fa fa-bell-o"></span>Code with Awanish <span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item dropdown">

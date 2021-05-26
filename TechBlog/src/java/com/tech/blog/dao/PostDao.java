@@ -143,6 +143,39 @@ public class PostDao {
     }
     
     
+    public Post getPostbyId(int id){
+        Post p = null;
+        
+        try{
+            
+            String sql = "select * from posts where pId = " + id;
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            
+            while(rs.next()){
+                
+                int pId = rs.getInt("pId");
+                String pTitle = rs.getString("pTitle");
+                String pContent = rs.getString("pContent");
+                String pCode = rs.getString("pCode");
+                String ppic = rs.getString("pPic");
+                Timestamp pTime = rs.getTimestamp("pDate");
+                int catId = rs.getInt("catId");
+                int userId = rs.getInt("userId");
+                
+              p = new Post(pId, pTitle, pContent, pCode, ppic, pTime ,catId, userId);
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        
+        
+        return p;
+    }
+    
+    
     
 
 }
