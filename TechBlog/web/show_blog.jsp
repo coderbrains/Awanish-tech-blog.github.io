@@ -406,7 +406,7 @@
 
                         <p class="post-content"><%=  post.getpContent()%></p>
 
-                        <img class="card-img-top" src="Blog_pics/<%= post.getpPic()%>" alt="Image not uploaded by the author">
+                        <img  class="card-img-top" src="Blog_pics/<%= post.getpPic()%>" alt="Image not uploaded by the author">
 
                         <div class="post-code">
 

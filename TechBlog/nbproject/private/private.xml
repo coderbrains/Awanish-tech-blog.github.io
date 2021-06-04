@@ -5,13 +5,8 @@
         <group>
             <file>file:/D:/Web%20projects/TechBlog/TechBlog/web/Load_Posts.jsp</file>
             <file>file:/D:/Web%20projects/TechBlog/TechBlog/web/profile.jsp</file>
-            <file>file:/D:/Web%20projects/TechBlog/TechBlog/src/java/com/tech/blog/dao/PostDao.java</file>
-            <file>file:/D:/Web%20projects/TechBlog/TechBlog/src/java/com/tech/blog/servlets/Login_Servlet.java</file>
-            <file>file:/D:/Web%20projects/TechBlog/TechBlog/src/java/com/tech/blog/servlets/Editservlet.java</file>
-            <file>file:/D:/Web%20projects/TechBlog/TechBlog/src/java/com/tech/blog/servlets/PostServlet.java</file>
             <file>file:/D:/Web%20projects/TechBlog/TechBlog/web/show_blog.jsp</file>
             <file>file:/D:/Web%20projects/TechBlog/TechBlog/web/Register_Page.jsp</file>
-            <file>file:/D:/Web%20projects/TechBlog/TechBlog/src/java/com/tech/blog/entities/Post.java</file>
         </group>
     </open-files>
 </project-private>

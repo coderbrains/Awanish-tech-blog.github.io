@@ -44,7 +44,7 @@
                 <!--<div class="card-header primary-background"></div>-->
 
                 <div class="card-body">
-                    <img class="card-img-top" style="height: 50%" src="Blog_pics/<%= p.getpPic()%>" alt="Image not uploaded by the author">
+                    <img class="card-img-top" style="max-width: 100px;max-height: 100px;" src="Blog_pics/<%= p.getpPic()%>" alt="Image not uploaded by the author">
                     <h5 class="display"><%= p.getpTitle()%></h5>
                     <p><%=  s%></p>
 
